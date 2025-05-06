@@ -1,4 +1,4 @@
-name: Build app
+ name: Build app
 
 on:
   push:
@@ -35,8 +35,17 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release PlaywrightAutomationFramework.csproj
 
+    - name: Pack NuGet package
+      run: dotnet pack PlaywrightAutomationFramework.csproj --configuration Release --output ./nupkg
+
+    - name: List generated files
+      run: dir ./nupkg
+      
     - name: Create the package
       run: dotnet pack --configuration Release PlaywrightAutomationFramework.csproj
       
-    - name: Publish the package to GPR
-      run: dotnet nuget push PlaywrightAutomationFramework/bin/Release/*.nupkg
+    - name: Upload generated .nupkg as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: PlaywrightAutomationFramework-nuget-package
+        path: ./nupkg/*.nupkg
