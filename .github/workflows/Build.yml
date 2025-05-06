@@ -30,16 +30,10 @@ jobs:
       run: dotnet build --configuration Release PlaywrightAutomationFramework.csproj
 
     - name: Pack NuGet package
-      run: dotnet pack PlaywrightAutomationFramework.csproj --configuration Release --output ./nupkg
-
-    - name: List generated files
-      run: dir ./nupkg
-      
-    - name: Create the package
-      run: dotnet pack --configuration Release PlaywrightAutomationFramework.csproj
+      run: dotnet pack PlaywrightAutomationFramework.csproj --configuration Release --output nupkg
       
     - name: Upload generated .nupkg as artifact
       uses: actions/upload-artifact@v4
       with:
         name: PlaywrightAutomationFramework-nuget-package
-        path: ./nupkg/*.nupkg
+        path: nupkg/*.nupkg
