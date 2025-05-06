@@ -33,10 +33,10 @@ jobs:
     #  run: dotnet test
 
     - name: Build
-      run: dotnet build --configuration Release PlaywrightAutomationFramework
+      run: dotnet build --configuration Release PlaywrightAutomationFramework.csproj
 
     - name: Create the package
-      run: dotnet pack --configuration Release PlaywrightAutomationFramework
+      run: dotnet pack --configuration Release PlaywrightAutomationFramework.csproj
       
     - name: Publish the package to GPR
       run: dotnet nuget push PlaywrightAutomationFramework/bin/Release/*.nupkg
